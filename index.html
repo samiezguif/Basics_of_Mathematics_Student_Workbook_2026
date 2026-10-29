@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basics of Mathematics — Student Workbook 2026</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for LaTeX Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  
+  <!-- Marked.js for Markdown Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #16a34a;
+      --success-light: #f0fdf4;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --gray-900: #0f172a;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 48px 24px;
+      border-bottom: 1px solid var(--gray-700);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      width: fit-content;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--gray-300);
+      font-size: 1.1rem;
+      max-width: 700px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 16px;
+      backdrop-filter: blur(8px);
+    }
+
+    .stat-val {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--gray-300);
+      margin-top: 4px;
+    }
+
+    .progress-bar-bg {
+      background: rgba(255, 255, 255, 0.15);
+      height: 8px;
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-bar-fill {
+      background: #3b82f6;
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.4s ease;
+    }
+
+    /* Controls & Navigation */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin: 32px 0 24px 0;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      background: var(--gray-200);
+      padding: 4px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--gray-600);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 260px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 16px;
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      background: white;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Topic Sections */
+    .module-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    .module-card:hover {
+      box-shadow: var(--shadow-lg);
+    }
+
+    .module-header {
+      padding: 20px 24px;
+      background: white;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .module-title-group h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    .module-category {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .module-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+    }
+
+    .status-pill.complete {
+      background: var(--success-light);
+      color: var(--success);
+      border: 1px solid #bbf7d0;
+    }
+
+    .status-pill.pending {
+      background: var(--gray-100);
+      color: var(--gray-600);
+      border: 1px solid var(--gray-200);
+    }
+
+    .problems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      padding: 20px 24px;
+      background: var(--gray-50);
+    }
+
+    .problem-btn {
+      background: white;
+      border: 1px solid var(--gray-200);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .problem-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+
+    .problem-btn.completed {
+      border-left: 4px solid var(--success);
+    }
+
+    .problem-num {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    .problem-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      line-height: 1.3;
+    }
+
+    /* Modal / Viewer */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 1000;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: white;
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 900px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      overflow: hidden;
+      animation: modalIn 0.2s ease-out;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      padding: 16px 24px;
+      background: var(--gray-100);
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.1rem;
+      color: var(--gray-900);
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--gray-600);
+      line-height: 1;
+      padding: 4px;
+    }
+
+    .close-btn:hover { color: var(--gray-900); }
+
+    .modal-body {
+      padding: 32px;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--gray-800);
+    }
+
+    .modal-body h1, .modal-body h2, .modal-body h3 {
+      color: var(--gray-900);
+      margin: 1.2em 0 0.5em 0;
+    }
+
+    .modal-body h1:first-child { margin-top: 0; }
+
+    .modal-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+    }
+
+    .modal-body th, .modal-body td {
+      border: 1px solid var(--gray-200);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .modal-body th { background: var(--gray-50); }
+
+    .modal-body pre {
+      background: var(--gray-900);
+      color: var(--gray-100);
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      margin: 16px 0;
+    }
+
+    .modal-footer {
+      padding: 12px 24px;
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .github-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .github-link:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      margin-top: 48px;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-content">
+      <div class="badge">
+        <span>📘</span> Student Workbook Winter 2026
+      </div>
+      <h1>Basics of Mathematics</h1>
+      <p class="subtitle">
+        Interactive digital workbook for undergraduate mathematics covering Linear Algebra, Analytic Geometry, and Calculus with rigorous LaTeX solutions.
+      </p>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-val" id="total-completed">30 / 180</div>
+          <div class="stat-label">Total Problems Solved (16.7%)</div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: 16.7%;"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">30 / 60</div>
+          <div class="stat-label">Linear Algebra (50.0%)</div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: 50%;"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">0 / 45</div>
+          <div class="stat-label">Analytic Geometry (0.0%)</div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">0 / 75</div>
+          <div class="stat-label">Calculus (0.0%)</div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="controls">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="filterCategory('all', this)">All Modules (12)</button>
+        <button class="tab-btn" onclick="filterCategory('Algebra', this)">1. Algebra (4)</button>
+        <button class="tab-btn" onclick="filterCategory('Geometry', this)">2. Geometry (3)</button>
+        <button class="tab-btn" onclick="filterCategory('Calculus', this)">3. Calculus (5)</button>
+      </div>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search exercises (e.g. determinants, Sarrus)..." oninput="handleSearch()">
+      </div>
+    </div>
+
+    <div id="modulesContainer">
+      <!-- Generated dynamically by JS -->
+    </div>
+  </main>
+
+  <!-- Modal for viewing full solutions with KaTeX rendering -->
+  <div class="modal-overlay" id="solutionModal" onclick="closeModalOnBg(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modalTitle">Problem Solution</h3>
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalContent">
+        <div style="text-align: center; padding: 40px; color: var(--gray-600);">Loading solution...</div>
+      </div>
+      <div class="modal-footer">
+        <span id="modalMeta" style="font-size: 0.85rem; color: var(--gray-600);"></span>
+        <a id="modalGitHubLink" href="#" target="_blank" class="github-link">
+          View on GitHub &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>Basics of Mathematics — Student Workbook 2026 &bull; Developed by <a href="https://github.com/samiezguif" target="_blank" style="color: inherit; text-decoration: underline;">samiezguif</a> &bull; Course instructor: Damian Chorążkiewicz</p>
+    </div>
+  </footer>
+
+  <script>
+    // Modules and problem metadata
+    const modulesData = [
+      {
+        id: "1_Algebra/01_matrices_and_operations",
+        category: "Algebra",
+        title: "Matrices and Basic Operations",
+        filePrefix: "01_matrices_and_operations",
+        completed: 15,
+        total: 15,
+        problems: [
+          "Matrix Size and Entries",
+          "Addition and Scalar Multiplication",
+          "When Can Matrices Be Multiplied?",
+          "Matrix Multiplication & Noncommutativity",
+          "Matrix Times Vector",
+          "Transpose & Reversal Law",
+          "Identity, Zero Matrix, and Powers",
+          "Row Operations & Reversibility",
+          "Composing Transformations",
+          "Columns of a Matrix Product",
+          "When Do Matrices Commute?",
+          "Formula for a Matrix Power",
+          "A Recurrence in Matrix Form",
+          "Rotation Matrices",
+          "Associativity & Calculation Paths"
+        ]
+      },
+      {
+        id: "1_Algebra/02_determinants",
+        category: "Algebra",
+        title: "Determinants",
+        filePrefix: "02_determinants",
+        completed: 15,
+        total: 15,
+        problems: [
+          "Determinant of a 2×2 Matrix",
+          "Determinant of a 3×3 Matrix",
+          "Swapping Two Rows",
+          "Triangular Matrix",
+          "Row Operations",
+          "Parameter and Invertibility",
+          "Using Properties Instead of Recomputing",
+          "Determinant of a Product",
+          "Area and the Determinant",
+          "Detecting Dependence",
+          "Shortening Calculation with Row Operations",
+          "Parameter Revealed by Row Operation",
+          "Determinant by Elimination",
+          "System of Equations and Determinant",
+          "Combining Determinant Properties"
+        ]
+      },
+      {
+        id: "1_Algebra/03_matrix_inversion",
+        category: "Algebra",
+        title: "Matrix Inversion",
+        filePrefix: "03_matrix_inversion",
+        completed: 0,
+        total: 15,
+        problems: [
+          "Definition of the Inverse",
+          "Formula for a 2×2 Matrix",
+          "When Does Inverse Not Exist?",
+          "Gauss–Jordan Elimination",
+          "A 3×3 Matrix Inversion",
+          "Solving System Using the Inverse",
+          "Inverse of a Product",
+          "Inverse of a Transformation",
+          "Matrix Equation",
+          "Inverse of a Diagonal Matrix",
+          "Parameter and Invertibility",
+          "Inverses Without Starting from Scratch",
+          "Undoing a Composite Transformation",
+          "Matrix That Is Its Own Inverse",
+          "Two Methods for Solving the Same System"
+        ]
+      },
+      {
+        id: "1_Algebra/04_systems_of_equations",
+        category: "Algebra",
+        title: "Systems of Linear Equations",
+        filePrefix: "04_systems_of_equations",
+        completed: 0,
+        total: 15,
+        problems: [
+          "From a System to a Matrix",
+          "Gaussian Elimination — One Solution",
+          "Inconsistent System",
+          "Infinitely Many Solutions",
+          "Row Echelon Form and Solution Count",
+          "System with Parameter — Cases",
+          "Back-Substitution",
+          "Free Variables and Geometric Interpretation",
+          "Homogeneous System",
+          "Consistency and Column Space",
+          "System with Two Parameters",
+          "Elimination vs Substitution",
+          "Rouché–Capelli Theorem",
+          "Fitting a Polynomial to Points",
+          "Geometry of Linear Systems"
+        ]
+      },
+      {
+        id: "2_Geometry/01_vectors",
+        category: "Geometry",
+        title: "Vectors in R² and R³",
+        filePrefix: "01_vectors",
+        completed: 0,
+        total: 15,
+        problems: [
+          "Vector Operations and Meaning",
+          "Distance as Vector Length",
+          "Vector Normalization",
+          "Dot Product and Perpendicularity",
+          "Angle Between Vectors",
+          "Linear Dependence of Two Vectors",
+          "Orthogonal Projection onto a Line",
+          "Cross Product in R³",
+          "Cross Product as Perpendicular Direction",
+          "Triangle Area from Vectors",
+          "Decomposition into Parallel & Perpendicular",
+          "Normal Vector to a Plane",
+          "Do Four Points Lie in One Plane?",
+          "Closest Point on a Line",
+          "Comparing Directions via Cosine"
+        ]
+      },
+      {
+        id: "2_Geometry/02_lines_and_planes",
+        category: "Geometry",
+        title: "Lines and Planes",
+        filePrefix: "02_lines_and_planes",
+        completed: 0,
+        total: 15,
+        problems: [
+          "Line Through Two Points",
+          "A Line in Space",
+          "Plane Through Point with Normal Vector",
+          "Plane Through Three Points",
+          "Relative Position of Two Lines",
+          "Angle Between Planes",
+          "A Line Relative to a Plane",
+          "Intersection Point of Line and Plane",
+          "Distances",
+          "Projection of Point onto Plane",
+          "Plane Containing Line and Point",
+          "Intersection Line of Two Planes",
+          "Closest Point on a Plane",
+          "Contrast: Intersection and Parallelism",
+          "Complete Classification of Line Relative to Plane"
+        ]
+      },
+      {
+        id: "2_Geometry/03_second_degree_curves_and_surfaces",
+        category: "Geometry",
+        title: "Second-Degree Curves and Surfaces",
+        filePrefix: "03_second_degree_curves_and_surfaces",
+        completed: 0,
+        total: 15,
+        problems: [
+          "Recognizing Curves from Canonical Form",
+          "Circle by Completing Square",
+          "Ellipse",
+          "Parabola",
+          "Hyperbola and Asymptotes",
+          "Shifted Ellipse",
+          "Classifying Second-Degree Equation",
+          "Sphere",
+          "Ellipsoid and Cross-Sections",
+          "Paraboloids",
+          "Two Similar Surfaces",
+          "Recognizing Surface from Cross-Sections",
+          "Intersection of Sphere and Plane",
+          "Cone and Cylinder",
+          "Recognition and Sketch"
+        ]
+      },
+      {
+        id: "3_Calculus/01_limits",
+        category: "Calculus",
+        title: "Limits of Sequences and Functions",
+        filePrefix: "01_limits",
+        completed: 0,
+        total: 15,
+        problems: [
+          "Dominant Terms in Sequence",
+          "Different Growth Rates",
+          "Square Root and Indeterminate Form",
+          "Powers and Oscillation",
+          "Classical Limit Leading to e",
+          "From Sequence to Function — Limit at Infinity",
+          "Limit at a Point and Canceling Factor",
+          "Square Root in Function Limit",
+          "One-Sided Limits and Asymptotes",
+          "Continuity of Piecewise Function",
+          "An n-th Root",
+          "Exponential Function Limit",
+          "Fundamental Trigonometric Limit",
+          "0/0 Limit with Trigonometry",
+          "Observation Versus Proof"
+        ]
+      },
+      {
+        id: "3_Calculus/02_derivatives",
+        category: "Calculus",
+        title: "Derivatives",
+        filePrefix: "02_derivatives",
+        completed: 0,
+        total: 15,
+        problems: [
+          "Derivative from Definition",
+          "Power, Polynomials, and Linearity",
+          "Product Rule",
+          "Quotient Rule",
+          "Chain Rule",
+          "Tangent Line to a Graph",
+          "Where Is the Tangent Horizontal?",
+          "Composite Functions with Roots",
+          "Trigonometric Derivatives",
+          "Exponential and Logarithmic Derivatives",
+          "Second Derivative and Curvature",
+          "Differentiating Given Tangent",
+          "Angle of Intersection of Two Curves",
+          "L'Hôpital's Rule: 0/0 and ∞/∞",
+          "L'Hôpital's Rule: Product & Difference Forms"
+        ]
+      },
+      {
+        id: "3_Calculus/03_function_analysis",
+        category: "Calculus",
+        title: "Function Analysis & Graphing",
+        filePrefix: "03_function_analysis",
+        completed: 0,
+        total: 15,
+        problems: [
+          "A Cubic Polynomial",
+          "Parabola from Perspective of Derivative",
+          "A Rational Function",
+          "Monotonicity and Local Extrema",
+          "Second Derivative and Convexity",
+          "Inflection Points",
+          "Vertical Asymptotes",
+          "Horizontal and Oblique Asymptotes",
+          "Complete Study: Rational Function",
+          "Complete Study: Function with Square Root",
+          "Complete Study: Function with Exponential",
+          "Number of Solutions of f(x) = m",
+          "Global Extrema on a Closed Interval",
+          "Reconstructing Function from Derivative",
+          "Connecting Monotonicity, Convexity, and Graph"
+        ]
+      },
+      {
+        id: "3_Calculus/04_integrals",
+        category: "Calculus",
+        title: "Integrals",
+        filePrefix: "04_integrals",
+        completed: 0,
+        total: 15,
+        problems: [
+          "Table Integrals and Linearity",
+          "Integration by Substitution: Linear Argument",
+          "Substitution: f'(x)/f(x) Pattern",
+          "Standard Substitution",
+          "Integration by Parts: Polynomial & Exponential",
+          "Integration by Parts: Polynomial & Trigonometric",
+          "Integration by Parts: Logarithm",
+          "Definite Integral: Newton–Leibniz Formula",
+          "Definite Integral with Substitution",
+          "Definite Integral with Integration by Parts",
+          "Area Under a Curve",
+          "Area Between Two Curves",
+          "Symmetry in Definite Integrals",
+          "Integral as Function of Upper Limit",
+          "Average Value of a Function"
+        ]
+      },
+      {
+        id: "3_Calculus/05_applications",
+        category: "Calculus",
+        title: "Applications of Calculus",
+        filePrefix: "05_applications",
+        completed: 0,
+        total: 15,
+        problems: [
+          "Motion — from Position to Velocity",
+          "Maximum Area of a Rectangle",
+          "A Box Made from Cardboard",
+          "Area Between Curves",
+          "Volume of Solid of Revolution",
+          "Optimal Cylindrical Can",
+          "Distance of Point to Parabola",
+          "Accumulated Value from Rate of Change",
+          "Cooling Model (Newton's Law)",
+          "Work Done by Variable Force",
+          "Arc Length of a Curve",
+          "Marginal Cost and Revenue",
+          "Surface Area of Solid of Revolution",
+          "Center of Mass of Plane Region",
+          "Cross-Sectional Modeling Synthesis"
+        ]
+      }
+    ];
+
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    function renderModules() {
+      const container = document.getElementById('modulesContainer');
+      container.innerHTML = '';
+
+      const filtered = modulesData.filter(mod => {
+        const matchesCategory = currentFilter === 'all' || mod.category === currentFilter;
+        if (!matchesCategory) return false;
+        if (!searchQuery) return true;
+        const q = searchQuery.toLowerCase();
+        return mod.title.toLowerCase().includes(q) || 
+               mod.problems.some(p => p.toLowerCase().includes(q));
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding: 48px; color: var(--gray-600); background: white; border-radius: 12px; border: 1px solid var(--gray-200);">No exercises match your search query "${searchQuery}".</div>`;
+        return;
+      }
+
+      filtered.forEach((mod) => {
+        const card = document.createElement('div');
+        card.className = 'module-card';
+
+        const isFullySolved = mod.completed === mod.total;
+        const statusBadge = isFullySolved 
+          ? `<span class="status-pill complete">✓ ${mod.completed}/${mod.total} Complete</span>`
+          : (mod.completed > 0 
+              ? `<span class="status-pill complete">${mod.completed}/${mod.total} Solved</span>` 
+              : `<span class="status-pill pending">0/${mod.total} Pending</span>`);
+
+        let problemsHtml = '';
+        mod.problems.forEach((probName, idx) => {
+          const probNum = idx + 1;
+          const isSolved = probNum <= mod.completed;
+          const numStr = probNum < 10 ? `0${probNum}` : `${probNum}`;
+          
+          problemsHtml += `
+            <button class="problem-btn ${isSolved ? 'completed' : ''}" onclick="openProblem('${mod.id}', ${probNum}, '${escapeHtml(probName)}')">
+              <span class="problem-num">Problem ${numStr} ${isSolved ? '✓' : ''}</span>
+              <span class="problem-title">${probName}</span>
+            </button>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="module-header" onclick="toggleModule(this)">
+            <div class="module-title-group">
+              <div class="module-category">${mod.category}</div>
+              <h2>${mod.title}</h2>
+            </div>
+            <div class="module-meta">
+              ${statusBadge}
+              <span style="font-size: 1.2rem; color: var(--gray-600);">&#9662;</span>
+            </div>
+          </div>
+          <div class="problems-grid">
+            ${problemsHtml}
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function toggleModule(headerEl) {
+      const grid = headerEl.nextElementSibling;
+      const arrow = headerEl.querySelector('.module-meta span:last-child');
+      if (grid.style.display === 'none') {
+        grid.style.display = 'grid';
+        arrow.innerHTML = '&#9662;';
+      } else {
+        grid.style.display = 'none';
+        arrow.innerHTML = '&#9656;';
+      }
+    }
+
+    function filterCategory(cat, btn) {
+      currentFilter = cat;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderModules();
+    }
+
+    function handleSearch() {
+      searchQuery = document.getElementById('searchInput').value.trim();
+      renderModules();
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // Modal and Markdown rendering
+    async function openProblem(modId, probNum, probTitle) {
+      const modal = document.getElementById('solutionModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalContent = document.getElementById('modalContent');
+      const modalMeta = document.getElementById('modalMeta');
+      const modalLink = document.getElementById('modalGitHubLink');
+
+      const numStr = probNum < 10 ? `0${probNum}` : `${probNum}`;
+      const filePath = `solutions/${modId}/problem_${numStr}_solution.md`;
+      const githubUrl = `https://github.com/samiezguif/Basics_of_Mathematics_Student_Workbook_2026/blob/main/${filePath}`;
+
+      modalTitle.innerText = `Problem ${numStr}: ${probTitle}`;
+      modalMeta.innerText = filePath;
+      modalLink.href = githubUrl;
+      modalContent.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--gray-600);">Loading solution from <code>${filePath}</code>...</div>`;
+      modal.classList.add('open');
+
+      try {
+        const response = await fetch(filePath);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        const markdown = await response.text();
+        
+        if (!markdown || markdown.trim().length === 0) {
+          modalContent.innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+              <p style="font-size: 1.1rem; color: var(--gray-600); margin-bottom: 12px;">This problem solution has not been written yet.</p>
+              <p style="font-size: 0.9rem; color: var(--gray-600);">You can find the exercise definition in the <a href="https://github.com/samiezguif/Basics_of_Mathematics_Student_Workbook_2026/tree/main/exercises" target="_blank" style="color: var(--primary);">exercises directory</a>.</p>
+            </div>
+          `;
+          return;
+        }
+
+        // Render Markdown using marked.js
+        modalContent.innerHTML = marked.parse(markdown);
+
+        // Render KaTeX math
+        if (window.renderMathInElement) {
+          renderMathInElement(modalContent, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false },
+              { left: '\\(', right: '\\)', display: false },
+              { left: '\\[', right: '\\]', display: true }
+            ],
+            throwOnError: false
+          });
+        }
+      } catch (err) {
+        modalContent.innerHTML = `
+          <div style="padding: 24px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; color: #991b1b;">
+            <p><strong>Note:</strong> When opening the page directly via <code>file://</code> protocol, your browser may block local file fetching due to CORS security.</p>
+            <p style="margin-top: 8px;">Once deployed on <strong>GitHub Pages</strong>, solutions load and render automatically with full LaTeX mathematical notation.</p>
+            <p style="margin-top: 12px;"><a href="${githubUrl}" target="_blank" style="color: var(--primary); font-weight: 600;">Click here to view this solution directly on GitHub &rarr;</a></p>
+          </div>
+        `;
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('solutionModal').classList.remove('open');
+    }
+
+    function closeModalOnBg(e) {
+      if (e.target.id === 'solutionModal') {
+        closeModal();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Initial render
+    renderModules();
+  </script>
+</body>
+</html>
+
