@@ -23,7 +23,7 @@ $$A=\begin{pmatrix}1&2&3\\4&5&6\end{pmatrix},\qquad B=\begin{pmatrix}1&0\\2&1\\-
   $$(AB)^T = B^T A^T.$$
   *Reason for order reversal:* The product $AB$ has size $m \times n$, so $(AB)^T$ has size $n \times m$. Looking at the components:
   $$(AB)^T_{ij} = (AB)_{ji} = \sum_{r=1}^k a_{jr} b_{ri} = \sum_{r=1}^k b_{ri} a_{jr} = \sum_{r=1}^k (B^T)_{ir} (A^T)_{rj} = (B^T A^T)_{ij}.$$
-  Notice that $A^T B^T$ would have dimensions $(k \times m) \times (n \times k)$, which is generally not even defined unless $m = n = k$.
+  Notice that $A^T$ has size $k \times m$ and $B^T$ has size $n \times k$. The naive candidate product $A^T B^T$ is defined if and only if the inner dimensions match, which requires $m = n$ ($k$ need not equal them). Even when $m = n$ (as in this exercise, where $m = n = 2$ and $k = 3$), the product $A^T B^T$ is defined but has size $k \times k$ ($3 \times 3$), which cannot equal the $n \times m$ ($2 \times 2$) matrix $(AB)^T$. In contrast, $B^T A^T$ has dimensions $(n \times k) \times (k \times m) = n \times m$, naturally matching the dimensions of $(AB)^T$, and the entrywise derivation above confirms they are identical.
 
 ---
 

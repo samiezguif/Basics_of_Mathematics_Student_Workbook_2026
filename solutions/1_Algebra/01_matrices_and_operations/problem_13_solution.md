@@ -65,7 +65,7 @@ Comparing each computed power to the Fibonacci terms:
 **General Relationship Observed:**  
 For every integer $n \ge 1$:
 $$F^n = \begin{pmatrix}F_{n+1} & F_n \\ F_n & F_{n-1}\end{pmatrix}$$
-The entries of the matrix power $F^n$ consist entirely of four consecutive Fibonacci numbers, arranged symmetrically along the anti-diagonal.
+The four entries of the matrix power $F^n$ involve three consecutive Fibonacci numbers ($F_{n-1}, F_n, F_{n+1}$), with $F_n$ appearing twice along the anti-diagonal.
 
 ---
 

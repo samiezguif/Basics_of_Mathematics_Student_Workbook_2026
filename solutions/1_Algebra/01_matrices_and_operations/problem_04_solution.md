@@ -84,5 +84,5 @@ When we compute $ABx = A(Bx)$, the transformation $B$ is applied first, and $A$ 
    - $\operatorname{tr}(BA) = 2 + 7 = 9$
    - $\operatorname{tr}(AB) = \operatorname{tr}(BA) = 9 \quad \checkmark$
 
-Both invariant checks hold, confirming that the arithmetic in both products is completely accurate.
+Both invariant checks hold as useful consistency checks (note that while determinant and trace agreement confirm global algebraic properties of the products, entrywise correctness is verified by the direct row-column dot products computed in Section 3).
 
